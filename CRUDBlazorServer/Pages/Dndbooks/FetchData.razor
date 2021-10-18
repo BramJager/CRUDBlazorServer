@@ -1,0 +1,65 @@
+﻿@page "/dndbooks"
+@using System.Net.Http.Json
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@inject HttpClient client
+@inject IJSRuntime js
+<h3>D&amp;D Books</h3>
+<small>Add as many D&amp;D Books as you wish.</small>
+<div class="form-group">
+    <a class="btn btn-success" href="dndbooks/create"><i class="oi oi-plus"></i> Create New</a>
+</div>
+<br>
+@if (dndbooks == null)
+{
+    <text>Loading...</text>
+}
+else if (dndbooks.Length == 0)
+{
+    <text>No Records Found.</text>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Publisher</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Dndbook book in dndbooks)
+            {
+                <tr>
+                    <td>@book.DndbookId</td>
+                    <td>@book.Name</td>
+                    <td>@book.Description</td>
+                    <td>@book.Publisher.Name</td>
+                    <td>
+                        <a class="btn btn-success" href="developer/edit/@book.DndbookId">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(() => Delete(book.DndbookId))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+    Dndbook[] dndbooks { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        dndbooks = await client.GetFromJsonAsync<Dndbook[]>("api/dndbooks");
+    }
+    async Task Delete(int id)
+    {
+        var book = dndbooks.First(x => x.DndbookId == id);
+        if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {book.Name}'s ({book.DndbookId}) Record?"))
+        {
+            await client.DeleteAsync($"api/dndbooks/{id}");
+            await OnInitializedAsync();
+        }
+    }
+}
