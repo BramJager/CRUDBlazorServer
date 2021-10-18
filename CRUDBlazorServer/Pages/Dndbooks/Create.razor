@@ -1,0 +1,15 @@
+﻿@page "/dndbooks/create"
+@using System.Net.Http.Json
+@inject HttpClient http
+@inject NavigationManager uriHelper
+<h3>Create</h3>
+<Form ButtonText="Create D&amp;D-book" book="@book"
+            OnValidSubmit="@CreateDndbook" />
+@code {
+    Dndbook book = new Dndbook();
+    async Task CreateDndbook()
+    {
+        await http.PostAsJsonAsync("https://localhost:44331/api/dndbooks", book);
+        uriHelper.NavigateTo("dndbooks");
+    }
+}

@@ -3,6 +3,7 @@
 @using System.Text.Json
 @using System.Text.Json.Serialization
 @inject IJSRuntime js
+@inject HttpClient client
 <h3>D&amp;D Books</h3>
 <small>Add as many D&amp;D Books as you wish.</small>
 <div class="form-group">
@@ -38,7 +39,7 @@ else
                     <td>@book.Description</td>
                     <td>@book.PublisherId</td>
                     <td>
-                        <a class="btn btn-success" href="developer/edit/@book.DndbookId">Edit</a>
+                        <a class="btn btn-success" href="dndbooks/edit/@book.DndbookId">Edit</a>
                         <button class="btn btn-danger" @onclick="@(() => Delete(book.DndbookId))">Delete</button>
                     </td>
                 </tr>
@@ -47,7 +48,6 @@ else
     </table>
 }
 @code {
-    public HttpClient client = new HttpClient();
     Dndbook[] dndbooks { get; set; }
     protected override async Task OnInitializedAsync()
     {

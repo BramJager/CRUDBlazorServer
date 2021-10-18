@@ -27,6 +27,7 @@ namespace CRUDBlazorServer
                 (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IRepository<Dndbook>, Dndbookrepository>();
             services.AddScoped<IRepository<Publisher>,PublisherRepository>();
+            services.AddSingleton<HttpClient>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRUDBlazorServer", "CRUDBlazorServer\CRUDBlazorServer.csproj", "{A9689488-C0AF-4E2B-9B1C-F92D592D2714}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRUDBlazorServer.Data", "CRUDBlazorServer.Data\CRUDBlazorServer.Data.csproj", "{C4A7D5D1-6DE1-44D9-A15F-0B1895C9D183}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRUDBlazorServer.Data", "CRUDBlazorServer.Data\CRUDBlazorServer.Data.csproj", "{C4A7D5D1-6DE1-44D9-A15F-0B1895C9D183}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

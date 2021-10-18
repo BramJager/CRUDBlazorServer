@@ -12,9 +12,9 @@ namespace CRUDBlazorServer.Data
         public DbSet<Publisher> Publishers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Publisher>()
-                .HasMany(c => c.Dndbooks)
-                .WithOne(e => e.Publisher);
+            modelBuilder.Entity<Dndbook>()
+                .HasOne(c => c.Publisher)
+                .WithMany(e => e.Dndbooks);
         }
     }
 }
