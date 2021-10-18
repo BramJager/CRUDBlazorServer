@@ -15,6 +15,8 @@ namespace CRUDBlazorServer.Data
             modelBuilder.Entity<Dndbook>()
                 .HasOne(c => c.Publisher)
                 .WithMany(e => e.Dndbooks);
+
+            modelBuilder.Entity<Publisher>().HasData(new Publisher {Id = 1, Name = "Wizards of the Coast" });
         }
     }
 }
