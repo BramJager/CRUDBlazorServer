@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CRUDBlazorServer.Data;
+using CRUDBlazorServer.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using CRUDBlazorServer.Data;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CRUDBlazorServer.Controllers
 {
@@ -11,9 +12,9 @@ namespace CRUDBlazorServer.Controllers
     [ApiController]
     public class DndbooksController : ControllerBase
     {
-        private readonly Dndbookrepository _repository;
+        private readonly IRepository<Dndbook> _repository;
 
-        public DndbooksController(Dndbookrepository repository)
+        public DndbooksController(IRepository<Dndbook> repository)
         {
             _repository = repository;
         }

@@ -2,7 +2,6 @@
 @using System.Net.Http.Json
 @using System.Text.Json
 @using System.Text.Json.Serialization
-@inject HttpClient client
 @inject IJSRuntime js
 <h3>D&amp;D Books</h3>
 <small>Add as many D&amp;D Books as you wish.</small>
@@ -37,7 +36,7 @@ else
                     <td>@book.DndbookId</td>
                     <td>@book.Name</td>
                     <td>@book.Description</td>
-                    <td>@book.Publisher.Name</td>
+                    <td>@book.PublisherId</td>
                     <td>
                         <a class="btn btn-success" href="developer/edit/@book.DndbookId">Edit</a>
                         <button class="btn btn-danger" @onclick="@(() => Delete(book.DndbookId))">Delete</button>
@@ -48,17 +47,18 @@ else
     </table>
 }
 @code {
+    public HttpClient client = new HttpClient();
     Dndbook[] dndbooks { get; set; }
     protected override async Task OnInitializedAsync()
     {
-        dndbooks = await client.GetFromJsonAsync<Dndbook[]>("api/dndbooks");
+        dndbooks = await client.GetFromJsonAsync<Dndbook[]>("https://localhost:44331/api/dndbooks");
     }
     async Task Delete(int id)
     {
         var book = dndbooks.First(x => x.DndbookId == id);
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {book.Name}'s ({book.DndbookId}) Record?"))
         {
-            await client.DeleteAsync($"api/dndbooks/{id}");
+            await client.DeleteAsync($"https://localhost:44331/api/dndbooks/{id}");
             await OnInitializedAsync();
         }
     }
